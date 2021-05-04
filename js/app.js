@@ -17,10 +17,12 @@ function Donation(name, age, amount) {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    age = Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    age = parseInt(Math.floor(Math.random() * (max - min) + min));
     console.log(age);
     return age;
 }
+
+
 getRandomInt();
 
 Donation.prototype.render = function() {
@@ -52,18 +54,19 @@ function handlClick(event) {
     localStorage.setItem('amount', amount);
 
     newDonor.render();
-    saveLocal();
+    // saveLocal();
     console.log(age);
+    getLocalStorage();
 }
-
-function saveLocal() {
-    let values = JSON.stringify('values', Donation.name);
-    localStorage.setItem('values');
-    console.log(values);
-}
+getLocalStorage();
+// function saveLocal() {
+//     let values = JSON.stringify('values', Donation.arrayAll);
+//     localStorage.setItem(values);
+//     console.log(values);
+// }
 
 function getLocalStorage() {
-    let data = localStorage.getItem('value');
+    let data = localStorage.getItem('values');
     let content = JSON.parse(data);
     if (content) {
         for (let i = 0; i < content.length; i++) {
