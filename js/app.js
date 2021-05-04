@@ -3,8 +3,6 @@
 let table = document.getElementById('newTable');
 let form = document.getElementById('newForm');
 
-let min = 18;
-let max = 30;
 let age = 0;
 Donation.arrayAll = [];
 
@@ -16,16 +14,8 @@ function Donation(name, age, amount) {
     Donation.arrayAll.push(this);
 }
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    age = parseInt(Math.floor(Math.random() * (max - min) + min));
-    console.log(age);
-    return age;
-}
-getRandomInt();
-
-
+age = Math.floor(Math.random() * (30 - 18)) + 18;
+console.log(age);
 
 Donation.prototype.render = function() {
 
@@ -46,11 +36,13 @@ let sum = 0;
 function totalFunction() {
     let total = document.createElement('tr');
     table.appendChild(total);
+    total.textContent = "Total";
+    let th = document.createElement('th');
+    total.appendChild(th);
     for (let i = 0; i < Donation.arrayAll; i++) {
         sum = sum + Donation.amount[i];
-
     }
-    total.textContent = sum;
+    th.textContent = sum;
 }
 
 
@@ -61,16 +53,14 @@ function handlClick(event) {
 
     let name = event.target.newText.value;
     let amount = event.target.newNumber.value;
-    age = 18;
+    age = Math.floor(Math.random() * (30 - 18)) + 18;
     let newDonor = new Donation(name, age, amount);
-    // localStorage.setItem("lastname", name);
-    // localStorage.setItem('age', age);
-    // localStorage.setItem('amount', amount);
-
     newDonor.render();
+    totalFunction();
     saveLocal();
     console.log(age);
     getLocalStorage();
+
 }
 getLocalStorage();
 
