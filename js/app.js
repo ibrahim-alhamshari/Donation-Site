@@ -1,6 +1,8 @@
 'use strict';
 
 let table = document.getElementById('newTable');
+let form = document.getElementById('newForm');
+
 let min = 18;
 let max = 30;
 let age = 0;
@@ -21,9 +23,9 @@ function getRandomInt(min, max) {
     console.log(age);
     return age;
 }
-
-
 getRandomInt();
+
+
 
 Donation.prototype.render = function() {
 
@@ -39,7 +41,19 @@ Donation.prototype.render = function() {
     }
 }
 
-let form = document.getElementById('newForm');
+let sum = 0;
+
+function totalFunction() {
+    let total = document.createElement('tr');
+    table.appendChild(total);
+    for (let i = 0; i < Donation.arrayAll; i++) {
+        sum = sum + Donation.amount[i];
+
+    }
+    total.textContent = sum;
+}
+
+
 form.addEventListener('submit', handlClick);
 
 function handlClick(event) {
@@ -47,23 +61,24 @@ function handlClick(event) {
 
     let name = event.target.newText.value;
     let amount = event.target.newNumber.value;
-
+    age = 18;
     let newDonor = new Donation(name, age, amount);
-    localStorage.setItem("lastname", name);
-    localStorage.setItem('age', age);
-    localStorage.setItem('amount', amount);
+    // localStorage.setItem("lastname", name);
+    // localStorage.setItem('age', age);
+    // localStorage.setItem('amount', amount);
 
     newDonor.render();
-    // saveLocal();
+    saveLocal();
     console.log(age);
     getLocalStorage();
 }
 getLocalStorage();
-// function saveLocal() {
-//     let values = JSON.stringify('values', Donation.arrayAll);
-//     localStorage.setItem(values);
-//     console.log(values);
-// }
+
+function saveLocal() {
+    let values = JSON.stringify('values', Donation.arrayAll);
+    localStorage.setItem(values);
+    console.log(values);
+}
 
 function getLocalStorage() {
     let data = localStorage.getItem('values');
