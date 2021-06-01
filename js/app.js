@@ -2,6 +2,7 @@
 
 let table = document.getElementById('newTable');
 let form = document.getElementById('newForm');
+let newRaw = document.getElementById('paragraph');
 
 let age = 0;
 Donation.arrayAll = [];
@@ -14,6 +15,10 @@ function Donation(name, age, amount) {
     Donation.arrayAll.push(this);
 }
 
+let total = document.createElement('li');
+newRaw.appendChild(total);
+let sum = 0;
+
 Donation.prototype.render = function() {
 
     let tr = document.createElement('tr');
@@ -24,32 +29,28 @@ Donation.prototype.render = function() {
         tr.appendChild(th);
         th.textContent = this.tableContent[i];
     }
-}
 
-let sum = 0;
-let total = document.createElement('tr');
-table.appendChild(total);
-total.textContent = "Total";
-
-function totalFunction() {
-
-    if (Donation.amount == '100') {
-        alert('yes');
-    } else {
-        let th = document.createElement('th');
-        total.appendChild(th);
-
-        for (let i = 0; i < 3; i++) {
-            console.log(Donation.amount[i]);
-            sum = sum + Donation.amount[i];
-
-
-        }
-        th.textContent = sum;
-        console.log(sum);
+    console.log(this.amount);
+    if (this.amount == '100') {
+        sum = sum + 100;
+        total.textContent = sum;
+    } else if (this.amount == '500') {
+        sum = sum + 500;
+        total.textContent = sum;
+    } else if (this.amount == '1000') {
+        sum = sum + 1000;
+        total.textContent = sum;
     }
-    alert('no');
+
+
+
 }
+
+
+
+
+// function totalFunction() {
+// }
 
 
 form.addEventListener('submit', handlClick);
@@ -66,15 +67,11 @@ function handlClick(event) {
     let newDonor = new Donation(name, age, amount);
 
     console.log(newDonor.amount);
-
     newDonor.render();
-    totalFunction();
+    // totalFunction();
     // saveLocal();
-
-    getLocalStorage();
-
+    // getLocalStorage();
 }
-
 
 
 getLocalStorage();
