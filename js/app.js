@@ -14,9 +14,6 @@ function Donation(name, age, amount) {
     Donation.arrayAll.push(this);
 }
 
-age = Math.floor(Math.random() * (30 - 18)) + 18;
-console.log(age);
-
 Donation.prototype.render = function() {
 
     let tr = document.createElement('tr');
@@ -26,23 +23,32 @@ Donation.prototype.render = function() {
         let th = document.createElement('th');
         tr.appendChild(th);
         th.textContent = this.tableContent[i];
-
-
     }
 }
 
 let sum = 0;
+let total = document.createElement('tr');
+table.appendChild(total);
+total.textContent = "Total";
 
 function totalFunction() {
-    let total = document.createElement('tr');
-    table.appendChild(total);
-    total.textContent = "Total";
-    let th = document.createElement('th');
-    total.appendChild(th);
-    for (let i = 0; i < Donation.arrayAll; i++) {
-        sum = sum + Donation.amount[i];
+
+    if (Donation.amount == '100') {
+        alert('yes');
+    } else {
+        let th = document.createElement('th');
+        total.appendChild(th);
+
+        for (let i = 0; i < 3; i++) {
+            console.log(Donation.amount[i]);
+            sum = sum + Donation.amount[i];
+
+
+        }
+        th.textContent = sum;
+        console.log(sum);
     }
-    th.textContent = sum;
+    alert('no');
 }
 
 
@@ -54,19 +60,28 @@ function handlClick(event) {
     let name = event.target.newText.value;
     let amount = event.target.newNumber.value;
     age = Math.floor(Math.random() * (30 - 18)) + 18;
+    parseInt(amount);
+    console.log(typeof(amount));
+
     let newDonor = new Donation(name, age, amount);
+
+    console.log(newDonor.amount);
+
     newDonor.render();
     totalFunction();
-    saveLocal();
-    console.log(age);
+    // saveLocal();
+
     getLocalStorage();
 
 }
+
+
+
 getLocalStorage();
 
 function saveLocal() {
-    let values = JSON.stringify('values', Donation.arrayAll);
-    localStorage.setItem(values);
+    let values = JSON.stringify(Donation.arrayAll);
+    localStorage.setItem('values', values);
     console.log(values);
 }
 
