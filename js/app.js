@@ -19,7 +19,7 @@ let total = document.createElement('li');
 newRaw.appendChild(total);
 let sum = 0;
 
-Donation.prototype.render = function() {
+Donation.prototype.render = function () {
 
     let tr = document.createElement('tr');
     table.appendChild(tr);
@@ -30,7 +30,6 @@ Donation.prototype.render = function() {
         th.textContent = this.tableContent[i];
     }
 
-    console.log(this.amount);
     if (this.amount == '100') {
         sum = sum + 100;
         total.textContent = sum;
@@ -42,54 +41,58 @@ Donation.prototype.render = function() {
         total.textContent = sum;
     }
 
-
-
 }
 
 
-
-
-// function totalFunction() {
-// }
 
 
 form.addEventListener('submit', handlClick);
 
 function handlClick(event) {
+
     event.preventDefault();
+    console.log("preventDefault");
+
 
     let name = event.target.newText.value;
     let amount = event.target.newNumber.value;
     age = Math.floor(Math.random() * (30 - 18)) + 18;
     parseInt(amount);
-    console.log(typeof(amount));
 
     let newDonor = new Donation(name, age, amount);
 
     console.log(newDonor.amount);
     newDonor.render();
-    // totalFunction();
-    // saveLocal();
+    saveLocal();
     // getLocalStorage();
 }
 
 
-getLocalStorage();
+
 
 function saveLocal() {
     let values = JSON.stringify(Donation.arrayAll);
     localStorage.setItem('values', values);
     console.log(values);
 }
-
+let i = 0;
+getLocalStorage();
 function getLocalStorage() {
+
     let data = localStorage.getItem('values');
     let content = JSON.parse(data);
-    if (content) {
-        for (let i = 0; i < content.length; i++) {
+    if (i == 0) {
+
+        console.log(i);
+        for (i; i < content.length; i++) {
+            console.log("length" + content.length);
+            console.log(i);
             let reInst = new Donation(content[i].name, content[i].age, content[i].amount);
             reInst.render();
+
         }
+        i = content.length + 1;
+
 
     }
 }
